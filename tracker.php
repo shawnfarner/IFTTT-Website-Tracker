@@ -7,11 +7,13 @@ $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
 $city = $details->city;
 $state = $details->region;
 
-if	($city="") { goto a; }
+if	(empty($city)) {
+exit;
+}
 
 else {
 
-$url = 'https://maker.ifttt.com/trigger/[trigger name]/with/key/[key]';
+$url = 'https://maker.ifttt.com/trigger/[trigger-name]w/with/key/[maker-key]';
 
 $data = array(
    "value1" => $city,
@@ -27,8 +29,6 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 $response = curl_exec($ch);
 curl_close($ch); }
 
-
-a:
 exit;
 
 ?>
